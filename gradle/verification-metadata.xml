@@ -8,6 +8,7 @@
          <trust file=".*-sources\.jar" regex="true"/>
          <trust file="gradle-[0-9.]+-src\.zip" regex="true"/>
          <trust group="org.jetbrains.kotlin" name="kotlin-reflect" version="2.3.21" reason="IntelliJ Kotlin DSL 스크립트 모델(prepareKotlinBuildScriptModel) 전용 IDE 내장 버전 - 런타임 클래스패스에 포함되지 않음"/>
+         <trust group="org.jetbrains.kotlin" name="kotlin-reflect" version="2.4.0" reason="IntelliJ Kotlin DSL 스크립트 모델(prepareKotlinBuildScriptModel) 전용 IDE 내장 버전 - 런타임 클래스패스에 포함되지 않음"/>
       </trusted-artifacts>
    </configuration>
    <components>

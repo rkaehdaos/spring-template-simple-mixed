@@ -1,0 +1,32 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Sonar 신규 코드/blame 분석에 전체 히스토리 필요
+      - uses: actions/setup-java@v4
+        with:
+          distribution: graalvm # mise.toml(oracle-graalvm-25)과 정합
+          java-version: '25'
+      - uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0 — 서드파티 액션은 SHA 핀 고정(S7637)
+        with:
+          # 구성 캐시 데이터는 암호화 키를 줘야만 GitHub Actions 캐시에 저장/복원된다.
+          # (키 미설정 시 CI에서는 매 실행마다 구성 단계를 새로 계산 — 빌드는 정상 동작)
+          # 키 생성: openssl rand -base64 16 → 리포지토리 secret 에 GRADLE_ENCRYPTION_KEY 로 등록
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Build & Test (koverVerify 포함)
+        run: ./gradlew build koverXmlReport
+      - name: SonarCloud 분석
+        if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }} # 포크 PR은 secret 없음
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew sonar

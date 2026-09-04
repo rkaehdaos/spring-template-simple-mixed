@@ -1,0 +1,41 @@
+[versions]
+kotlin = "2.4.10"
+spring-boot = "4.1.1"
+spring-dependency-management = "1.1.7"
+graalvm-buildtools = "1.1.8"
+archunit = "1.5.0"
+konsist = "0.17.3"
+kotest = "6.2.4"
+pmd = "7.27.0"
+kover = "0.9.9"
+sonarqube = "7.5.0.8588"
+
+[libraries]
+# BOM 관리 (버전 생략 — io.spring.dependency-management가 버전 결정)
+spring-boot-h2console = { module = "org.springframework.boot:spring-boot-h2console" }
+spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
+spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
+spring-boot-starter-data-jpa-test = { module = "org.springframework.boot:spring-boot-starter-data-jpa-test" }
+spring-boot-starter-webmvc-test = { module = "org.springframework.boot:spring-boot-starter-webmvc-test" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
+jackson-module-kotlin = { module = "tools.jackson.module:jackson-module-kotlin" }
+h2 = { module = "com.h2database:h2" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+# 버전 명시
+archunit = { module = "com.tngtech.archunit:archunit", version.ref = "archunit" }
+konsist = { module = "com.lemonappdev:konsist", version.ref = "konsist" }
+kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+graalvm-native = { id = "org.graalvm.buildtools.native", version.ref = "graalvm-buildtools" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
